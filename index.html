@@ -35,6 +35,15 @@
     <!-- Include SweetAlert CSS and JS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+    </script>
+    <script type="text/javascript">
+        (function () {
+            emailjs.init({
+                publicKey: "KZ85H0_h8kQG_9d_D",
+            });
+        })();
+    </script>
 </head>
 
 <body>
@@ -147,8 +156,8 @@
                             <div class="facility-text bg-primary">
                                 <h3 class="text-primary mb-3">After School Care</h3>
                                 <p class="mb-0">
-                                    Eirmod sed ipsum dolor sit rebum magna erat lorem kasd vero
-                                    ipsum sit
+                                    Our After-School Service offers enriching activities and care, ensuring a fun, safe,
+                                    and productive time.
                                 </p>
                             </div>
                         </div>
@@ -163,8 +172,8 @@
                             <div class="facility-text bg-success">
                                 <h3 class="text-success mb-3">Drop-Inn</h3>
                                 <p class="mb-0">
-                                    Eirmod sed ipsum dolor sit rebum magna erat lorem kasd vero
-                                    ipsum sit
+                                    The Drop-In service provides flexible, on-demand care and support for students,
+                                    ensuring convenience and peace of mind.
                                 </p>
                             </div>
                         </div>
@@ -326,8 +335,9 @@
             <div class="container">
                 <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
                     <h1 class="mb-3">Gallery</h1>
-                    <p>Eirmod sed ipsum dolor sit rebum labore magna erat. Tempor ut dolore lorem kasd vero ipsum sit
-                        eirmod sit. Ipsum diam justo sed rebum vero dolor duo.</p>
+                    <p>Explore our Gallery to see the heart of school life! Discover photos and videos of events,
+                        activities, and memorable moments that showcase the vibrant spirit and achievements of our
+                        school community.</p>
                 </div>
                 <div class="row g-4">
                     <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
@@ -444,7 +454,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
 
 
-    <script>
+    <!-- <script>
         // Your web app's Firebase configuration
         var firebaseConfig = {
             apiKey: "AIzaSyC77UJ3Fec-VqTi-FD2EYpFoZup9-G06Go",
@@ -471,11 +481,7 @@
     
             // Validate form values
             if (!name || !email || !subject || !message) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Please fill out all fields!'
-                });
+                // If validation fails, stop the function here.
                 return;
             }
     
@@ -486,23 +492,41 @@
                 subject: subject,
                 message: message
             })
-            .then(() => {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Success!',
-                    text: 'Your message has been sent.'
-                });
-    
-                // Clear form fields
-                document.getElementById("contactForm").reset();
-            })
             .catch((error) => {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error!',
-                    text: `Failed to send message: ${error.message}`
-                });
+                console.error(`Failed to send message: ${error.message}`);
             });
+        });
+    </script>     -->
+    <script>
+        // Add a submit event listener to the form
+        document.getElementById('contactForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent the form from submitting normally
+
+            // Get form data
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                subject: document.getElementById('subject').value,
+                message: document.getElementById('message').value
+            };
+
+            // Use EmailJS to send the email
+            emailjs.send('service_tg6hh6v', 'template_oqkxqkw', formData)
+                .then(function (response) {
+                    console.log('SUCCESS!', response.status, response.text);
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Message Sent!',
+                        text: 'Your message has been sent successfully.',
+                    });
+                }, function (error) {
+                    console.log('FAILED...', error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong! Please try again later.',
+                    });
+                });
         });
     </script>
 
