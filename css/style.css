@@ -130,7 +130,7 @@ h6,
 }
 
 @media (max-width: 991.98px) {
-    .navbar .navbar-nav .nav-link  {
+    .navbar .navbar-nav .nav-link {
         margin-right: 0;
         padding: 10px 0;
     }
@@ -149,7 +149,7 @@ h6,
         opacity: 0;
         visibility: hidden;
         transition: .5s;
-        
+
     }
 
     .navbar .nav-item:hover .dropdown-menu {
@@ -189,7 +189,7 @@ h6,
         position: relative;
         min-height: 500px;
     }
-    
+
     .header-carousel .owl-carousel-item img {
         position: absolute;
         width: 100%;
@@ -205,6 +205,69 @@ h6,
     .header-carousel .owl-carousel-item h1 {
         font-size: 30px;
         font-weight: 600;
+    }
+}
+
+.logo-name-small {
+    display: none;
+}
+
+.logo-name {
+    display: inline;
+}
+
+/* Small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    .logo-name {
+        display: none;
+    }
+
+    .logo-name-small {
+        display: inline;
+    }
+}
+
+/* Medium devices (portrait tablets and large phones, 601px to 768px) */
+@media only screen and (min-width: 601px) and (max-width: 768px) {
+    .logo-name {
+        display: inline;
+    }
+
+    .logo-name-small {
+        display: none;
+    }
+}
+
+/* Large devices (landscape tablets and small desktops, 769px to 992px) */
+@media only screen and (min-width: 769px) and (max-width: 992px) {
+    .logo-name {
+        display: inline;
+    }
+
+    .logo-name-small {
+        display: none;
+    }
+}
+
+/* Extra large devices (desktops, 993px to 1200px) */
+@media only screen and (min-width: 993px) and (max-width: 1200px) {
+    .logo-name {
+        display: inline;
+    }
+
+    .logo-name-small {
+        display: none;
+    }
+}
+
+/* Extra extra large devices (large desktops, 1201px and up) */
+@media only screen and (min-width: 1201px) {
+    .logo-name {
+        display: inline;
+    }
+
+    .logo-name-small {
+        display: none;
     }
 }
 
@@ -244,7 +307,7 @@ h6,
     background-size: cover;
 }
 
-.breadcrumb-item + .breadcrumb-item::before {
+.breadcrumb-item+.breadcrumb-item::before {
     color: rgba(255, 255, 255, .5);
 }
 
@@ -436,7 +499,7 @@ h6,
     align-items: center;
     justify-content: center;
     color: #FFFFFF;
-    border: 1px solid rgba(255,255,255,0.5);
+    border: 1px solid rgba(255, 255, 255, 0.5);
     border-radius: 45px;
     transition: .3s;
 }
@@ -472,7 +535,7 @@ h6,
 }
 
 .footer .form-control {
-    border-color: rgba(255,255,255,0.5);
+    border-color: rgba(255, 255, 255, 0.5);
 }
 
 .footer .copyright {
