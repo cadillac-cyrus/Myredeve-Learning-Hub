@@ -403,6 +403,9 @@
                         </div>
                     </div>
                 </div>
+                <div class="d-flex justify-content-center">
+                    <a style="background-color: #ae2950; border: none;" href="gallery.html" class="btn btn-dark rounded-pill py-sm-3 px-sm-5 animated slideInRight text-center">See more</a>
+                </div>
             </div>
         </div>
     </div>
@@ -466,7 +469,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
 
 
-    <!-- <script>
+    <script>
         // Your web app's Firebase configuration
         var firebaseConfig = {
             apiKey: "AIzaSyC77UJ3Fec-VqTi-FD2EYpFoZup9-G06Go",
@@ -482,38 +485,10 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
     
-        document.getElementById("contactForm").addEventListener("submit", function (event) {
-            event.preventDefault(); // Prevent form submission
-    
-            // Get form values
-            const name = document.getElementById("name").value;
-            const email = document.getElementById("email").value;
-            const subject = document.getElementById("subject").value;
-            const message = document.getElementById("message").value;
-    
-            // Validate form values
-            if (!name || !email || !subject || !message) {
-                // If validation fails, stop the function here.
-                return;
-            }
-    
-            // Save data to Firestore
-            db.collection("contacts").add({
-                name: name,
-                email: email,
-                subject: subject,
-                message: message
-            })
-            .catch((error) => {
-                console.error(`Failed to send message: ${error.message}`);
-            });
-        });
-    </script>     -->
-    <script>
         // Add a submit event listener to the form
         document.getElementById('contactForm').addEventListener('submit', function (event) {
             event.preventDefault(); // Prevent the form from submitting normally
-
+    
             // Get form data
             const formData = {
                 name: document.getElementById('name').value,
@@ -521,18 +496,33 @@
                 subject: document.getElementById('subject').value,
                 message: document.getElementById('message').value
             };
-
-            // Use EmailJS to send the email
-            emailjs.send('service_tg6hh6v', 'template_oqkxqkw', formData)
-                .then(function (response) {
+    
+            // Validate form values
+            if (!formData.name || !formData.email || !formData.subject || !formData.message) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Validation Failed',
+                    text: 'Please fill in all fields before submitting.',
+                });
+                return; // Stop the function here if validation fails.
+            }
+    
+            // Save data to Firestore
+            db.collection("contacts").add(formData)
+                .then(() => {
+                    // Use EmailJS to send the email
+                    return emailjs.send('service_tg6hh6v', 'template_oqkxqkw', formData);
+                })
+                .then((response) => {
                     console.log('SUCCESS!', response.status, response.text);
                     Swal.fire({
                         icon: 'success',
                         title: 'Message Sent!',
                         text: 'Your message has been sent successfully.',
                     });
-                }, function (error) {
-                    console.log('FAILED...', error);
+                })
+                .catch((error) => {
+                    console.error('Failed to send message:', error.message);
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
@@ -541,9 +531,9 @@
                 });
         });
     </script>
+    
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
 </body>
-
 </html>
